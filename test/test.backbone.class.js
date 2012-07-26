@@ -52,6 +52,30 @@ describe('Backbone.Class', function () {
             expect(officer.x).to.be(2);
             expect(officer.y).to.be(2);
         });
+
+        it('should be able to set class properties', function () {
+            var Animal = Backbone.Class.extend({
+                initialize: function (params) {
+                    if (params.name) {
+                        this.name = params.name;
+                    }
+                    if (params.numLegs) {
+                        this.numLegs = params.numLegs;
+                    }
+                }
+            }, {
+                TWO_LEGS: 0x1000,
+                FOUR_LEGS: 0x1001
+            });
+
+            var cat = new Animal({
+                name: 'mitzi',
+                numLegs: Animal.FOUR_LEGS
+            });
+
+            expect(cat.name).to.equal('mitzi');
+            expect(cat.numLegs).to.equal(Animal.FOUR_LEGS);
+        });
     });
 
 });
